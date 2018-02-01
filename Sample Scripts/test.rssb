@@ -1,0 +1,61 @@
+.section .text
+.origin 0x0020
+start:
+	rssb ACC
+	rssb r0
+	rssb r0
+	rssb r0		;r0 = 0
+	rssb =0x0C
+	rssb ZERO
+	rssb ZERO
+	rssb r0		;r0 = =0x0C
+	rssb ACC
+	rssb ACC
+	rssb r1
+	rssb r1
+	rssb r1		;r1 = 0
+	rssb r0
+	rssb ZERO
+	rssb ZERO
+	rssb r1		;r1 = r0
+	rssb ACC
+		;NEG r0
+	rssb ACC
+	rssb TEMP
+	rssb TEMP
+	rssb TEMP		;TEMP = 0
+	rssb r0
+	rssb TEMP
+	rssb TEMP		;TEMP = -r0
+	rssb ACC
+	rssb r0
+	rssb r0
+	rssb r0		;r0 = 0
+	rssb TEMP
+	rssb ZERO
+	rssb ZERO
+	rssb r0		;r0 = TEMP
+	rssb ACC
+	rssb ACC
+	rssb result
+	rssb result
+	rssb result		;result = 0
+	rssb r0
+	rssb result
+	rssb result		;result = -r0
+	rssb ACC
+	rssb r1
+	rssb ZERO
+	rssb ZERO
+	rssb result		;result = result + r1
+	rssb ACC
+		;HALT
+	rssb ACC
+	rssb IP
+	rssb IP
+.section .stack
+.origin 0x100
+.section .data
+.origin 0x0054
+result:
+	rssb -1

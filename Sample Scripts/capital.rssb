@@ -1,0 +1,238 @@
+.section .text
+.origin 0x0020
+	rssb ACC
+	rssb R0
+	rssb R0
+	rssb R0		;R0 = 0
+	rssb hello
+	rssb ZERO
+	rssb ZERO
+	rssb R0		;R0 = hello
+	rssb ACC
+	rssb ACC
+	rssb R1
+	rssb R1
+	rssb R1		;R1 = 0
+loop:
+		;IFLT =0, R0
+	rssb ACC
+	rssb TEMP
+	rssb TEMP
+	rssb TEMP		;TEMP = 0
+	rssb R0
+	rssb TEMP
+	rssb TEMP		;TEMP = -R0
+	rssb ACC
+	rssb =0
+	rssb ZERO
+	rssb ZERO
+	rssb TEMP
+	rssb ACC
+	rssb ZERO
+	rssb ZERO
+	rssb _else0_
+	rssb ACC
+	rssb IP
+_if0_:
+		;IFGT R0, =0x60
+	rssb ACC
+	rssb TEMP
+	rssb TEMP
+	rssb TEMP		;TEMP = 0
+	rssb =0x60
+	rssb TEMP
+	rssb TEMP		;TEMP = -=0x60
+	rssb ACC
+	rssb R0
+	rssb ZERO
+	rssb ZERO
+	rssb TEMP
+	rssb ZERO
+	rssb ACC
+	rssb ZERO
+	rssb ZERO
+	rssb _else1_
+	rssb ACC
+	rssb IP
+_if1_:
+		;IFLT R0, =0x7b
+	rssb ACC
+	rssb TEMP
+	rssb TEMP
+	rssb TEMP		;TEMP = 0
+	rssb =0x7b
+	rssb TEMP
+	rssb TEMP		;TEMP = -=0x7b
+	rssb ACC
+	rssb R0
+	rssb ZERO
+	rssb ZERO
+	rssb TEMP
+	rssb ACC
+	rssb ZERO
+	rssb ZERO
+	rssb _else2_
+	rssb ACC
+	rssb IP
+_if2_:
+	rssb ACC
+	rssb TEMP
+	rssb TEMP
+	rssb TEMP		;TEMP = 0
+	rssb R0
+	rssb ZERO
+	rssb ZERO
+	rssb TEMP		;TEMP = R0
+	rssb ACC
+	rssb ACC
+	rssb R0
+	rssb R0
+	rssb R0		;R0 = 0
+	rssb =0x20
+	rssb R0
+	rssb R0		;R0 = -=0x20
+	rssb ACC
+	rssb TEMP
+	rssb ZERO
+	rssb ZERO
+	rssb R0		;R0 = R0 + TEMP
+	rssb ACC
+		;STR R0, [=hello, R1]
+	rssb ACC
+	rssb _storeA0_
+	rssb _storeA0_
+	rssb _storeB0_
+	rssb _storeB0_
+	rssb _storeC0_
+	rssb _storeC0_
+	rssb _storeD0_
+	rssb _storeD0_
+	rssb =hello
+	rssb ZERO
+	rssb ZERO
+	rssb _storeA0_
+	rssb ACC
+	rssb R1
+	rssb ZERO
+	rssb ZERO
+	rssb _storeA0_
+	rssb ZERO
+	rssb ZERO
+	rssb _storeB0_
+	rssb ZERO
+	rssb ZERO
+	rssb _storeC0_
+	rssb ZERO
+	rssb ZERO
+	rssb _storeD0_
+	rssb ACC
+_storeA0_:
+	rssb 0
+_storeB0_:
+	rssb 0
+_storeC0_:
+	rssb 0
+	rssb R0
+	rssb ZERO
+	rssb ZERO
+_storeD0_:
+	rssb 0
+	rssb ACC
+		;B _end2_
+	rssb ACC
+	rssb _branch0_
+	rssb ZERO
+	rssb ZERO
+	rssb IP
+_branch0_:
+	rssb (_end2_-_branch0_)
+_else2_:
+	rssb (_if2_-_else2_-1)
+		;ELSE
+		;END
+_end2_:
+		;B _end1_
+	rssb ACC
+	rssb _branch1_
+	rssb ZERO
+	rssb ZERO
+	rssb IP
+_branch1_:
+	rssb (_end1_-_branch1_)
+_else1_:
+	rssb (_if1_-_else1_-1)
+		;ELSE
+		;END
+_end1_:
+	rssb ACC
+	rssb =1
+	rssb ZERO
+	rssb ZERO
+	rssb R1		;R1 = R1 + =1
+	rssb ACC
+		;LOAD R0, [=hello, R1]
+	rssb ACC
+	rssb _load0_
+	rssb _load0_
+	rssb =hello
+	rssb ZERO
+	rssb ZERO
+	rssb _load0_
+	rssb ACC
+	rssb R1
+	rssb ZERO
+	rssb ZERO
+	rssb _load0_
+	rssb ACC
+	rssb R0
+	rssb R0
+	rssb R0
+_load0_:
+	rssb 0
+	rssb ZERO
+	rssb ZERO
+	rssb R0
+	rssb ACC
+		;B loop
+	rssb ACC
+	rssb _branch2_
+	rssb ZERO
+	rssb ZERO
+	rssb IP
+_branch2_:
+	rssb (loop-_branch2_)
+		;B _end0_
+	rssb ACC
+	rssb _branch3_
+	rssb ZERO
+	rssb ZERO
+	rssb IP
+_branch3_:
+	rssb (_end0_-_branch3_)
+_else0_:
+	rssb (_if0_-_else0_-1)
+		;ELSE
+		;END
+_end0_:
+		;HALT
+	rssb ACC
+	rssb IP
+	rssb IP
+.section .stack
+.origin 0x1000
+.section .data
+.origin 0x00e0
+hello:
+	rssb 0x68
+	rssb 0x65
+	rssb 0x6c
+	rssb 0x6c
+	rssb 0x6F
+	rssb 0x20
+	rssb 0x77
+	rssb 0x6f
+	rssb 0x72
+	rssb 0x6c
+	rssb 0x64
+	rssb 0x21
+	rssb 0x00

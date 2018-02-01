@@ -1,0 +1,39 @@
+.section .text
+.origin 0x0020
+		MOV R0, hello	;R0 = letter
+		MOV R1, 0		;R1 = offset
+loop:
+		IFLT 0, R0							;halt when we reach null
+			IFGT R0, 0x60					;check if the character is lowercase
+				IFLT R0, 0x7b
+					SUB R0, 0x20			;turn it into uppercase
+					STR R0, [=hello, R1]	;store it back
+				ELSE
+				END
+			ELSE
+			END
+			ADD R1, 1
+			LOAD R0, [=hello, R1]	;load the next character
+			B loop
+		ELSE
+		END
+		HALT
+.section .stack
+.origin 0x1000
+	
+.section .data
+.origin 0x00e0
+hello:
+	.word 0x68 ;'h'
+	.word 0x65 ;'e'
+	.word 0x6c ;'l'
+	.word 0x6c ;'l'
+	.word 0x6F ;'o'
+	.word 0x20 ;' '
+	.word 0x77 ;'w'
+	.word 0x6f ;'o'
+	.word 0x72 ;'r'
+	.word 0x6c ;'l'
+	.word 0x64 ;'d'
+	.word 0x21 ;'!'
+	.word 0x00 ;null

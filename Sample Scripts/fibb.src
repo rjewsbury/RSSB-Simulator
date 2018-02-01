@@ -1,0 +1,45 @@
+.section .text
+.origin 0x0020
+start:
+		MOV R0, arg
+		BL fibb, LR
+		HALT
+		
+fibb:	
+	IFLT R0, 1				;base case fibb(0)
+		MOV R0, 0
+		BX LR
+	ELSE
+		IFLT R0, 2			;base case fibb(1)
+			NOP
+			BX LR
+		ELSE				;case fibb(n) n > 1
+			PUSH LR
+			PUSH R3
+			PUSH R4
+			MOV R3, R0
+			SUB R0, R3, 1
+			BL fibb, LR
+			MOV R4, R0
+			SUB R0, R3, 2
+			BL fibb, LR
+			ADD R0, R4
+			POP R4
+			POP R3
+			POP LR
+			BX LR
+		END
+	END
+
+.section .stack
+.origin 0x01B0
+
+.section .data
+.origin 0x01A4
+arg:	.word 8
+filler:	.word 0xab00
+		.word 0xFFFF
+		.word 0xFFFF
+		.word 0xFFFF
+		.word 0xFFFF
+		.word 0xFFFF
