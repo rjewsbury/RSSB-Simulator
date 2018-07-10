@@ -133,8 +133,20 @@ public class MemoryPanel extends JPanel
 				{
 					line += (myMemory.getWord(lineNum*ADDRESSES_PER_LINE+i)+" ");
 					memorySymbol = (char)myMemory.get(lineNum*ADDRESSES_PER_LINE+i);
-					//if the character is a control character, don't print it properly
-					charMemory += memorySymbol<32? '.': memorySymbol;
+					//if the character is a control character, it will cause problems if we print it
+					//instead, print a different symbol to represent it
+
+					//attempted to use fancy symbols, but it didnt look great
+//					if(memorySymbol == 0)
+//						memorySymbol = '.';
+//					else if(memorySymbol <= 8)
+//						memorySymbol = (char)('▁'+(memorySymbol-1));
+//					else if(memorySymbol < 32)
+//						memorySymbol = '.';
+
+					memorySymbol = memorySymbol<32 ? '.': memorySymbol;
+
+					charMemory += memorySymbol;
 				}
 				
 				line += charMemory;

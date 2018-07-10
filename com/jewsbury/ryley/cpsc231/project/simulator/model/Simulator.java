@@ -29,14 +29,16 @@ public class Simulator
 	{
 		myBreaks = breaks;
 	}
-	
+
 	public void run()
 	{
 		//do at least one step
 		step();
 		
 		//in real hardware this would busyloop while(true)
-		while(myMemory.get(0) > 5 && !myBreaks.contains(myMemory.get(0)))
+		//stops when the program has reached a halted state or a user defined break
+		//if there's a non-terminating program with no breaks, the program never responds. TODO: fix?
+		while(!(myMemory.get(0) == 2 && myMemory.get(1) == 1) && !myBreaks.contains(myMemory.get(0)))
 		{
 			//display();
 			step();
