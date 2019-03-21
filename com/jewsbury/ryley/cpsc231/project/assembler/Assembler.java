@@ -201,10 +201,14 @@ public class Assembler
 			lineNum++;
 			try{
 				interpretLine(sourceReader.nextLine());
-			}catch(RuntimeException e){
+			}catch (AssemblerException e){
 				System.err.println("Assembler error on line ( "+lineNum+" ):");
 				sourceReader.close();
 				throw e;
+			}catch(RuntimeException e){
+				System.err.println("Assembler error on line ( "+lineNum+" ):");
+				sourceReader.close();
+				throw new AssemblerException("Assembler error on line ( "+lineNum+" ):", e);
 			}
 		}
 		

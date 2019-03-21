@@ -55,7 +55,7 @@ public class SimulatorFrame extends JFrame implements Loadable
 		setSize(1100, 700);
 		//setMinimumSize(new Dimension(316,380));
 		//resizing things is terrible to deal with
-		setResizable(false);
+		//setResizable(false);
 		
 		myMemory = new Memory();
 		mySimulator = new Simulator(myMemory);

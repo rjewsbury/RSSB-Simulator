@@ -67,13 +67,14 @@ public class RSSBCompiler
 			lineNum++;
 			try{
 				interpretLine(sourceReader.nextLine());
-			}catch(RuntimeException e)
-			{
+			}catch(CompilerException e){
 				System.out.println("Compiler error on line ( "+lineNum+" ):");
-				e.printStackTrace();
-				
 				sourceReader.close();
-				return;
+				throw e;
+			}catch(RuntimeException e){
+				System.out.println("Compiler error on line ( "+lineNum+" ):");
+				sourceReader.close();
+				throw new CompilerException("Compiler error on line ( "+lineNum+" ):", e);
 			}
 		}
 		
